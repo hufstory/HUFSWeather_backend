@@ -152,7 +152,7 @@ ehthumbs_vista.db
 *.stackdump
 
 # api key
-api.js
+api
 
 # Folder config file
 [Dd]esktop.ini
