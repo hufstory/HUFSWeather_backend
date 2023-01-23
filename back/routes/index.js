@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var Axios = require('axios');
+const config = require('./api.js');
+
 /* GET home page. */
 router.get('/getWeather', async function (req, res) {
   var today = new Date();
@@ -12,14 +14,14 @@ router.get('/getWeather', async function (req, res) {
   var nx = 64;
   var ny = 122;
   var url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst'
-  var api = '';
+  var api = config.api;
   url += "?serviceKey=" + api;
   url += "&pageNo=1&numOfRows=7";
   url += "&dataType=JSON";
   url += "&base_date=" + dateString;
-  url += "&base_time=" + hour-1 + "00";
+  url += "&base_time=" + hour + "00";
   url += "&nx=" + nx + "&ny=" + ny;
-  
+  console.log(url)
 
 try {  let movieRes = await Axios.get(
     url 
