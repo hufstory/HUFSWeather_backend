@@ -151,6 +151,9 @@ ehthumbs_vista.db
 # Dump file
 *.stackdump
 
+# api key
+api.js
+
 # Folder config file
 [Dd]esktop.ini
 
