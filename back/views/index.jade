@@ -1,5 +1,18 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title 외상청
+  body   
+    p=temp 
+    p=pressure 
+    p=humidity 
+    p=temp_min 
+    p=temp_max 
+    p=windSpeed 
+    p=windDeg 
+    p=cloud 
+    p=sunrise 
+    p=sunset 
