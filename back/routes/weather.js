@@ -53,8 +53,8 @@ return res.render('index', {
   windSpeed:windSpeed,
   windDeg:windDeg,
   cloud:cloud,
-  sunrise:sunrise,
-  sunset:sunset})
+  sunrise:Unix_timestamp(sunrise),
+  sunset:Unix_timestamp(sunset)})
 }
 catch(e){ 
   res.status(500).send("error" + e);
