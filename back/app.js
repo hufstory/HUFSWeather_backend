@@ -3,7 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 const cors = require('cors');
 var mysql = require('mysql');
-var indexRouter = require('./routes/weather');
+var weatherRouter = require('./routes/weather');
 var mainRouter = require('./routes/main');
 var mysqlkey = require('./routes/api');
 var app = express();
@@ -41,7 +41,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/hufsWeather', mainRouter, indexRouter);
+app.use('/hufsweather', mainRouter, weatherRouter);
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

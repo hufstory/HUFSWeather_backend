@@ -4,7 +4,7 @@ var Axios = require('axios');
 const config = require('./api.js');
 
 /* GET home page. */
-router.get('/getWeather', async function (req, res) {
+router.get('/getweather', async function (req, res) {
   var url = `https://api.openweathermap.org/data/2.5/weather?lat=37.336414&lon=127.268979&lang=kr&appid=${config.api}&units=metric`
   console.log(url)
 try {  let weatherRes = await Axios.get(
@@ -43,7 +43,7 @@ function Unix_timestamp(t){
 }
 console.log(Unix_timestamp(sunrise));//일출시간
 console.log(Unix_timestamp(sunset));//일몰시간
-return res.render('index', {
+return res.render('weather', {
   weather:weather,
   temp:temp,
   pressure:pressure,
