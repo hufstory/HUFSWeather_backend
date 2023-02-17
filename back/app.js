@@ -5,7 +5,7 @@ const cors = require('cors');
 var mysql = require('mysql');
 var weatherRouter = require('./routes/weather');
 var mainRouter = require('./routes/main');
-var mysqlkey = require('./routes/api');
+var mysqlkey = require('./routes/databasekey');
 var app = express();
 
 var connection = mysql.createConnection({//연결할 테이블

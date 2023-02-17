@@ -154,6 +154,11 @@ ehthumbs_vista.db
 # api key
 back/routes/api.js
 
+# database key
+back/routes/databasekey.js
+
+# HUFSweather_front
+HUFSWeather_frontend
 
 # Folder config file
 [Dd]esktop.ini
