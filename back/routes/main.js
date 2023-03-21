@@ -4,27 +4,24 @@ const path = require('path');
 var Axios = require('axios');
 const cors = require('cors');
 const config = require('./api.js');
+const config_chatgpt = require('./openai_api.js');
+const { Configuration, OpenAIApi } = require('openai');
 router.use(cors());
 
+const configuration = new Configuration({
+    organization: "org-CsLVFqxc2fo6CQj983AaTZav",
+    apiKey: config_chatgpt.api,
+});
+const openai = new OpenAIApi(configuration);
 /* GET home page. */
 router.get('/', function (req, res){
     // var url = `https://api.openweathermap.org/data/2.5/weather?lat=37.336414&lon=127.268979&lang=kr&appid=${config.api}&units=metric`
     var url = `https://api.openweathermap.org/data/2.5/forecast?lat=37.336414&lon=127.268979&appid=${config.api}&units=metric` // 3hours 5day api url
-    console.log(url);
-    var temp = [];
-    var feel_temp = [];
-    var temp_min = [];
-    var temp_max = [];
-    var humidity = [];
-    var weather = [];
-    var weather_detail = [];
-    var weather_icon = [];
-    var wind_speed = [];
-    var time = [];
     Axios.get(url)
     .then(result => {
         const data = result.data;
         var send_message_list = [];
+        var sex = 'male'
         data.list.forEach((data) => {
             var send_message = {
                 temp: data.main.temp, //기온
@@ -40,12 +37,38 @@ router.get('/', function (req, res){
             };
             send_message_list.push(send_message);
           });
-        res.json(send_message_list);
+        openai
+        .createChatCompletion({
+            model: "gpt-3.5-turbo",
+            messages:[{role:"user", content:`
+            temperatures : ${send_message_list[0].temp}
+            sensory temperature : ${send_message_list[0].feel_temp}
+            minimum temperature : ${send_message_list[0].temp_min}
+            maximum temperature${send_message_list[0].temp_max}
+            humidity : ${send_message_list[0].humidity}
+            weather : ${send_message_list[0].weather}
+            weather description : ${send_message_list[0].weather_detail}
+            wind speed : ${send_message_list[0].wind_speed}
+            time : ${send_message_list[0].time}
+            If the price is like this, please recommend the clothes I should wear
+            my sex is ${sex}
+            please answer in korean
+            `},
+            {
+                role:"system",
+                content: "you are a system that recommends clothes according to the weather."
+            }
+        ]
+        })
+        .then(gpt_message=>{
+            send_message_list.push(gpt_message.data.choices[0].message.content);
+            res.json(send_message_list);
+        })
+
     })
     .catch(e=>{
         // handle error
         console.log(e);
-
       });
 });
 
