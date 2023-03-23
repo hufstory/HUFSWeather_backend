@@ -3,9 +3,9 @@ const router = express.Router();
 const path = require('path');
 var Axios = require('axios');
 const cors = require('cors');
-const config = require('./api.js');
-const config_chatgpt = require('./openai_api.js');
-const { Configuration, OpenAIApi } = require('openai');
+const config = require('./api.js');//api_key - openweathermap
+const config_chatgpt = require('./openai_api.js');//api_key - chatgpt
+const { Configuration, OpenAIApi } = require('openai'); //openai
 router.use(cors());
 
 const configuration = new Configuration({
@@ -20,7 +20,7 @@ router.get('/', function (req, res){
     Axios.get(url)
     .then(result => {
         const data = result.data;
-        var send_message_list = [];
+        var send_message_list = [];//json
         var sex = 'male'
         data.list.forEach((data) => {
             var send_message = {
@@ -41,6 +41,7 @@ router.get('/', function (req, res){
         .createChatCompletion({
             model: "gpt-3.5-turbo",
             messages:[{role:"user", content:`
+            Weather information for the time of ${send_message_list[0].time} is as follows
             temperatures : ${send_message_list[0].temp}
             sensory temperature : ${send_message_list[0].feel_temp}
             minimum temperature : ${send_message_list[0].temp_min}
@@ -49,14 +50,49 @@ router.get('/', function (req, res){
             weather : ${send_message_list[0].weather}
             weather description : ${send_message_list[0].weather_detail}
             wind speed : ${send_message_list[0].wind_speed}
-            time : ${send_message_list[0].time}
-            If the price is like this, please recommend the clothes I should wear
-            my sex is ${sex}
+            Weather information for the time of ${send_message_list[1].time} is as follows
+            temperatures : ${send_message_list[1].temp}
+            sensory temperature : ${send_message_list[1].feel_temp}
+            minimum temperature : ${send_message_list[1].temp_min}
+            maximum temperature${send_message_list[1].temp_max}
+            humidity : ${send_message_list[1].humidity}
+            weather : ${send_message_list[1].weather}
+            weather description : ${send_message_list[1].weather_detail}
+            wind speed : ${send_message_list[1].wind_speed}
+            Weather information for the time of ${send_message_list[2].time} is as follows
+            temperatures : ${send_message_list[2].temp}
+            sensory temperature : ${send_message_list[2].feel_temp}
+            minimum temperature : ${send_message_list[2].temp_min}
+            maximum temperature${send_message_list[2].temp_max}
+            humidity : ${send_message_list[2].humidity}
+            weather : ${send_message_list[2].weather}
+            weather description : ${send_message_list[2].weather_detail}
+            wind speed : ${send_message_list[2].wind_speed}
+            Weather information for the time of ${send_message_list[3].time} is as follows
+            temperatures : ${send_message_list[3].temp}
+            sensory temperature : ${send_message_list[3].feel_temp}
+            minimum temperature : ${send_message_list[3].temp_min}
+            maximum temperature${send_message_list[3].temp_max}
+            humidity : ${send_message_list[3].humidity}
+            weather : ${send_message_list[3].weather}
+            weather description : ${send_message_list[3].weather_detail}
+            wind speed : ${send_message_list[3].wind_speed}
+            Weather information for the time of ${send_message_list[4].time} is as follows
+            temperatures : ${send_message_list[4].temp}
+            sensory temperature : ${send_message_list[4].feel_temp}
+            minimum temperature : ${send_message_list[4].temp_min}
+            maximum temperature${send_message_list[4].temp_max}
+            humidity : ${send_message_list[4].humidity}
+            weather : ${send_message_list[4].weather}
+            weather description : ${send_message_list[4].weather_detail}
+            wind speed : ${send_message_list[4].wind_speed}
+    
             please answer in korean
             `},
             {
                 role:"system",
-                content: "you are a system that recommends clothes according to the weather."
+                content: "You are a system that recommends clothes to me according to the weather information I send you.\
+                Please recommend clothes suitable for this weather by synthesizing and analyzing the weather information"
             }
         ]
         })
