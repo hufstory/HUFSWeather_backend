@@ -3,8 +3,8 @@ const router = express.Router();
 const path = require('path');
 var Axios = require('axios');
 const cors = require('cors');
-const config = require('./api.js');//api_key - openweathermap
-const config_chatgpt = require('./openai_api.js');//api_key - chatgpt
+const config = require('../keys/api');//api_key - openweathermap
+const config_chatgpt = require('../keys/openai_api');//api_key - chatgpt
 const { Configuration, OpenAIApi } = require('openai'); //openai
 router.use(cors());
 
