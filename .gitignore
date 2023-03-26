@@ -152,11 +152,13 @@ ehthumbs_vista.db
 *.stackdump
 
 # api key
-back/routes/api.js
+back/keys/api.js
+
 #chatgpt api key
-back/routes/openai_api.js
+back/keys/openai_api.js
+
 # database key
-back/routes/databasekey.js
+back/keys/databasekey.js
 
 # HUFSweather_front
 HUFSWeather_frontend
