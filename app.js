@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 const cors = require('cors');
 var mysql = require('mysql');
 var mainRouter = require('./routes/main');
+var clothRouter = require('./routes/cloth');
 var mysqlkey = require('./keys/databasekey');
 var app = express();
 
@@ -30,6 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', mainRouter);
+app.use('/weather', mainRouter);
+app.use('/clothes', clothRouter);
 
 module.exports = app;
