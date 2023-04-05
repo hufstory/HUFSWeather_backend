@@ -43,8 +43,8 @@ bower_components
 build/Release
 
 # Dependency directories
-back/node_modules/
 node_modules/
+
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
@@ -153,13 +153,13 @@ ehthumbs_vista.db
 *.stackdump
 
 # api key
-back/keys/api.js
+keys/api.js
 
 #chatgpt api key
-back/keys/openai_api.js
+keys/openai_api.js
 
 # database key
-back/keys/databasekey.js
+keys/databasekey.js
 
 # HUFSweather_front
 HUFSWeather_frontend
