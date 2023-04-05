@@ -27,7 +27,7 @@ function Unix_timestamp(t){
 var message = {};
 router.get('/', async (req, res) => {
     try {
-        console.log(message);
+        
             var url_current = `https://api.openweathermap.org/data/2.5/weather?lat=37.336414&lon=127.268979&lang=kr&appid=${config.api}&units=metric`
             var url_3hour = `https://api.openweathermap.org/data/2.5/forecast?lat=37.336414&lon=127.268979&lang=kr&appid=${config.api}&units=metric` // 3hours 5day api url
             const response = await Axios.get(url_current)
