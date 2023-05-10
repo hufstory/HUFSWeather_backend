@@ -62,7 +62,6 @@ router.get('/', async (req, res) => {
                 var days = [];
             data.list.forEach(function(list){
                 var date = Unix_timestamp(list.dt).split(' ')[0];
-                
                 const D = new Date(date);
                 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
                 const dayOfWeek = D.getDay();
@@ -71,13 +70,17 @@ router.get('/', async (req, res) => {
                         minTemp: Infinity, 
                         maxTemp: -Infinity,
                         day : "",
-                };
+                        icon : "",
+                        main : "",
+                    };
                 days.push(date);
                   }
                 let minTemp = list.main.temp_min;
                 let maxTemp = list.main.temp_max;
                 if (minTemp < weather_whole[date].minTemp) {
                     weather_whole[date].minTemp = minTemp;
+                    weather_whole[date].icon = list.weather[0].icon;
+                    weather_whole[date].main = list.weather[0].main;
                 }
                 if (maxTemp > weather_whole[date].maxTemp) {
                     weather_whole[date].maxTemp = maxTemp;
@@ -85,6 +88,7 @@ router.get('/', async (req, res) => {
                 weather_whole[date].day = weekdays[dayOfWeek];
                 // Add the forecast data to the corresponding date array
             });
+            console.log(weather_whole)
             weather_week = {
                 firstday : weather_whole[days[0]],
                 secondday : weather_whole[days[1]],
@@ -93,6 +97,7 @@ router.get('/', async (req, res) => {
                 fifthday : weather_whole[days[4]],
             }
             message.weather_whole = weather_week;
+            console.log(days);
     });
     res.json(message)
 }
