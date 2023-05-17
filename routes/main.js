@@ -88,7 +88,6 @@ router.get('/', async (req, res) => {
                 weather_whole[date].day = weekdays[dayOfWeek];
                 // Add the forecast data to the corresponding date array
             });
-            console.log(weather_whole)
             weather_week = {
                 firstday : weather_whole[days[0]],
                 secondday : weather_whole[days[1]],
@@ -97,8 +96,7 @@ router.get('/', async (req, res) => {
                 fifthday : weather_whole[days[4]],
             }
             message.weather_whole = weather_week;
-            console.log(days);
-    });
+        });
     res.json(message)
 }
     catch (error) {
