@@ -27,7 +27,6 @@ function Unix_timestamp(t){
 var message = {};
 router.get('/', async (req, res) => {
     try {
-        
             var url_current = `https://api.openweathermap.org/data/2.5/weather?lat=37.336414&lon=127.268979&lang=kr&appid=${config.api}&units=metric`
             var url_3hour = `https://api.openweathermap.org/data/2.5/forecast?lat=37.336414&lon=127.268979&lang=kr&appid=${config.api}&units=metric` // 3hours 5day api url
             const response = await Axios.get(url_current)
@@ -105,24 +104,22 @@ router.get('/', async (req, res) => {
         .createChatCompletion({
             model: "gpt-3.5-turbo",
             messages:[{role:"user", content:`
-            today weather is ${message.weather_current.weather_main} and The lowest temperature is ${message.weather_current.temp_min} and the highest temperature is ${message.weather_current.temp_max}.\
-            At ${message.weather_times.list[0].time}, the temperature is ${message.weather_times.list[0].temp}, the weather is ${message.weather_times.list[0].weather_main},\
-             the wind speed is ${message.weather_times.list[0].wind_speed}, and the sensory temperature is ${message.weather_times.list[0].feel_temp}. The humidity is ${message.weather_times.list[0].humidity}.
-             At ${message.weather_times.list[1].time}, the temperature is ${message.weather_times.list[1].temp}, the weather is ${message.weather_times.list[1].weather_main},\
-             the wind speed is ${message.weather_times.list[1].wind_speed}, and the sensory temperature is ${message.weather_times.list[1].feel_temp}. The humidity is ${message.weather_times.list[1].humidity}.
-             At ${message.weather_times.list[2].time}, the temperature is ${message.weather_times.list[2].temp}, the weather is ${message.weather_times.list[2].weather_main},\
-             the wind speed is ${message.weather_times.list[2].wind_speed}, and the sensory temperature is ${message.weather_times.list[2].feel_temp}. The humidity is ${message.weather_times.list[2].humidity}.
-             At ${message.weather_times.list[3].time}, the temperature is ${message.weather_times.list[3].temp}, the weather is ${message.weather_times.list[3].weather_main},\
-             the wind speed is ${message.weather_times.list[3].wind_speed}, and the sensory temperature is ${message.weather_times.list[3].feel_temp}. The humidity is ${message.weather_times.list[3].humidity}.
-             At ${message.weather_times.list[4].time}, the temperature is ${message.weather_times.list[4].temp}, the weather is ${message.weather_times.list[4].weather_main},\
-             the wind speed is ${message.weather_times.list[4].wind_speed}, and the sensory temperature is ${message.weather_times.list[4].feel_temp}. The humidity is ${message.weather_times.list[4].humidity}.
-    
-            please answer in korean
-            `},
+            오늘의 전반적인 날씨는 ${message.weather_current.weather_main}이고 최소기온은 ${message.weather_whole.firstday.minTemp}이고 최고기온은 ${message.weather_whole.firstday.maxTemp}이다.\
+            ${message.weather_times.list[0].time}에 기온은 ${message.weather_times.list[0].temp}이고 날씨는 ${message.weather_times.list[0].weather_main},\
+            풍속은 ${message.weather_times.list[0].wind_speed}, 체감온도는 ${message.weather_times.list[0].feel_temp}이다. 습도는 ${message.weather_times.list[0].humidity}.
+            ${message.weather_times.list[1].time}에 기온은 ${message.weather_times.list[1].temp}이고 날씨는 ${message.weather_times.list[1].weather_main},\
+            풍속은 ${message.weather_times.list[1].wind_speed}, 체감온도는 ${message.weather_times.list[1].feel_temp}이다. 습도는 ${message.weather_times.list[1].humidity}.
+            ${message.weather_times.list[2].time}에 기온은 ${message.weather_times.list[2].temp}이고 날씨는 ${message.weather_times.list[2].weather_main},\
+            풍속은 ${message.weather_times.list[2].wind_speed}, 체감온도는 ${message.weather_times.list[2].feel_temp}이다. 습도는 ${message.weather_times.list[2].humidity}.
+            ${message.weather_times.list[3].time}에 기온은 ${message.weather_times.list[3].temp}이고 날씨는 ${message.weather_times.list[3].weather_main},\
+            풍속은 ${message.weather_times.list[3].wind_speed}, 체감온도는 ${message.weather_times.list[3].feel_temp}이다. 습도는 ${message.weather_times.list[3].humidity}.
+            ${message.weather_times.list[4].time}에 기온은 ${message.weather_times.list[4].temp}이고 날씨는 ${message.weather_times.list[4].weather_main},\
+            풍속은 ${message.weather_times.list[4].wind_speed}, 체감온도는 ${message.weather_times.list[4].feel_temp}이다. 습도는 ${message.weather_times.list[4].humidity}. 
+             `},
             {
                 role:"system",
-                content: "You are a system that recommends clothes to me according to the weather information JSON I send you.\
-                Please recommend clothes suitable for this weather by synthesizing and analyzing the weather information"
+                content: "내가 기상정보를 담고있는 메시지를 보내면, 너는 기상상황을 받아서 날씨와 기온, 최소기온, 최고기온, 풍속, 체감온도, 습도에 맞는 옷을 추천해주는 시스템이고 \
+                출력은 한국말로 출력하고 날씨와 기온, 최소기온, 최고기온, 풍속, 체감온도, 습도정보는 출력하지 말고 내가 어떤 옷을 입어야 좋을지 추천 옷만 출력해줘"
             }
         ]
         })
